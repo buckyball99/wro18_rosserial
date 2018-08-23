@@ -1,1 +1,1 @@
-# wro18_rosserial
+Code for establishing serial communication between Atmega128 and ROS. The Publisher object passes sensor data encrypted within a string and the Subcriber object subscribes to a separate topic and simultaneously gives instructions to the motors.
