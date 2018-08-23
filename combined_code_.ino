@@ -14,7 +14,6 @@
 #include <std_msgs/String.h>
 #include<VL53L0X.h>
 #include "mcp.h"
-//#include <sra128.h>
 #include <stdio.h>
 #include <serstream>
 #include <string>
@@ -207,7 +206,7 @@ void calculate_pid()
   backerror = accurateback - posback;
   /*  Serial.print(fronterror); */
   //    Serial.print("\t");
-  //    Serial.println(backerror); // -7 se 4 symetric not
+  //    Serial.println(backerror); // -7 to 4 not symmetric
 
 
 
@@ -314,22 +313,8 @@ void calculate_pid()
   weightedSumFront = 0; weightedSumBack = 0; sumfront = 0; sumback = 0;
   previouserrorfront = fronterror;
   previouserrorback = backerror;
-  /*     Serial.print(frontpwmd);
-        Serial.print("\t");
-        Serial.print(backpwmd);
-        Serial.println();*/
+
 }
-
-
-
-
-
-
-
-
-
-
-
 struct motorData {
 
 
@@ -341,10 +326,10 @@ struct motorData {
   int pwmR;
   int pwmB;
   int pwmL;
-  int  botforward;
-  int  botright;
-  int  botbackward;
-  int  botleft;
+  int botforward;
+  int botright;
+  int botbackward;
+  int botleft;
 
   void printData() {
   }
@@ -440,13 +425,9 @@ struct motorData {
 //    MOTORFB = 1;
 //
 //  }
-
-
 };
 
 motorData md;
-
-
 
 #define _1_MESSAGE 'D'
 #define _2_MESSAGE 'P'
@@ -490,11 +471,6 @@ void decrypt_message(String message)
   length = message.indexOf(_6_MESSAGE_end);
   str_obj = message.substring(index, length);
   md.pwmL = str_obj.toInt();
-
-
-
-  // md.printData();
-
 
 }
 void dataCallback(const std_msgs::String& msg)
@@ -631,14 +607,10 @@ void loop() {
   object.append(int_data_to_string(y));
   object.append("e");
 
-  //   object = "f215151fsfs5f1515fsfsff";
+  // example  object = "f00001111b11110000w12s07l1r0t123y321e";
   sensorstring.data = object.c_str();
-  pub.publish(&sensorstring);
-    
-  
+  pub.publish(&sensorstring); 
   nh.spinOnce();
-
-
 
 }
 
